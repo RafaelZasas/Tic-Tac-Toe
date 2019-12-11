@@ -36,46 +36,46 @@ public class GameView extends JPanel {  // this class will be the JPanel that co
 
     }
 
-    public void insX(int row, int col){
-        this.remove(squares[row][col]);
+    public void insX(int row, int col){ // method gets called when user clicks a button
+        this.remove(squares[row][col]); // remove the button in the square that the user clicked
         JButton button = new JButton("X"); // create a new button that has an x on it
         button.setFont(new Font("Arial", Font.BOLD, 24)); // have to create a font object
         button.setBorderPainted(true);  // add a border to the button
         squares[row][col]=button;  // put this button into the Array
 
-        for (int i = 0; i <3 ; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i <3 ; i++) {        // have to add all the buttons back to the panel one by one
+            for (int j = 0; j < 3; j++) {     // to ensure that the square is put back in the right order
                 this.add(squares[i][j]); // have to use this because were in the panel
             }
         }
     }
 
-    public void insO(){
-        int rand1=0;
-        int rand2=0;
-        do {
+    public void insO(){  // gets called immediately after the insX method
+        int rand1=0;  // random row #
+        int rand2=0; // random col #
+        do {  // keeps choosing new co ordinates while the pair landed on a taken square
             rand1=(int) (Math.random()*3); // random row #
             rand2=(int) (Math.random()*3); // random col #
         } while (squares[rand1][rand2].getText().equals("X") || squares[rand1][rand2].getText().equals("O"));
 
-        this.remove(squares[rand1][rand2]);
+        this.remove(squares[rand1][rand2]); // remove the blank button
         JButton button = new JButton("O"); // create a new button that has an O on it
         button.setFont(new Font("Arial", Font.BOLD, 24));    // create a font object
         button.setBorderPainted(true);  // add a border to the button
         squares[rand1][rand2]=button;  // put this button into the Array
 
-        for (int i = 0; i <3 ; i++) {
+        for (int i = 0; i <3 ; i++) {  // re add all the buttons one by one
             for (int j = 0; j < 3; j++) {
                 this.add(squares[i][j]); // have to use this because were in the panel
             }
         }
     }
 
-    public void evaluate(){
+    public void evaluate(){   // evaluates the state of the game at each step
     boolean playerWin=false;
     boolean computerWin=false;
-    int xCount=0;
-    int oCount=0;
+    int xCount=0;  // # of X's in a row
+    int oCount=0;  // # of O's in a row
 
         //check row 1
         for(int i = 0; i < 3; i++){
@@ -86,7 +86,7 @@ public class GameView extends JPanel {  // this class will be the JPanel that co
            playerWin= xCount == 3; // true if all 3 in first row is X
            computerWin = oCount==3; // true if all 3 in first row is O
         }
-        checkWin(playerWin,computerWin);
+        checkWin(playerWin,computerWin);  // ends the game if a winner is found
 
         //check row 2
         xCount=0;oCount=0;
@@ -184,9 +184,11 @@ public class GameView extends JPanel {  // this class will be the JPanel that co
     public void checkWin(boolean playerWin, boolean computerWin){
         if (playerWin){
             JOptionPane.showMessageDialog(this,"Congratulations! You beat the PC!");
-            System.exit(0);
+            // winner
+            System.exit(0); // terminate the program
         } else if (computerWin) {
             JOptionPane.showMessageDialog(this,"Sorry... Better luck next time buddy :) ");
+            // loser
             System.exit(0);
         }
     }

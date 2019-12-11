@@ -6,16 +6,16 @@ public class operations extends Brain {
 
 
     @Override
-    void buildGameViews() {
+    void buildGameViews() {  // creates the J frame
         // TASK1: CREATE A FRAME, SET THE TITLE AND DIMENSIONS, MAKE VISIBLE
         JFrame frame = new JFrame();  // create a new JFrame
         frame.setTitle("X's an O's"); // set the title
         frame.setSize(500,550);  // specify the dimensions of the frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // make sure the frame can be closes
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // make sure the frame can be closed
 
         // TASK 2: INSTANTIATE A GameView OBJECT AND ADD IT TO THE FRAME
 
-        GameView game = new GameView();
+        GameView game = new GameView();  // object of the JPanel
         frame.add(game); // add the J panel to the J frame
         frame.setVisible(true);  // show the j frame
 
@@ -28,13 +28,16 @@ public class operations extends Brain {
                 GameView.squares[i][j].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // System.out.println(""+ finalI +" "+ finalJ);
+                        // replace the empty clicked button with one that has an x in it
                         insertX(finalI,finalJ,game,frame);
+
+                        // replace the empty clicked button with one that has an O in it
                         insertO(game,frame);
-                        count[0]++;
+                        count[0]++;  // number of times the user has clicked
+
                         if (count[0]<4){
-                            game.evaluate();
-                        } else game.draw();
+                            game.evaluate();  // check for a winner each time a button is clicked  while clicks <4
+                        } else game.draw();  // call it a draw
 
                     }
                 });
